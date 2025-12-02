@@ -1,0 +1,3051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALZ-CARE | Alzheimer's Life & Climate Adaptive Resilience Ecosystem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --purple-darkest: #0d0a1a;
+            --purple-dark: #1a1033;
+            --purple-deep: #2d1b4e;
+            --purple-main: #4a2c7a;
+            --purple-bright: #7b4bb8;
+            --purple-light: #9d6dd8;
+            --purple-glow: #b88de8;
+            --accent-coral: #ff6b8a;
+            --accent-teal: #4ecdc4;
+            --accent-gold: #ffd93d;
+            --accent-mint: #6bcb77;
+            --text-white: #f8f6ff;
+            --text-muted: #a89cc4;
+            --glass-bg: rgba(45, 27, 78, 0.6);
+            --glass-border: rgba(155, 109, 216, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--purple-darkest);
+            color: var(--text-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--purple-darkest) 0%, var(--purple-dark) 50%, var(--purple-deep) 100%);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 20%, rgba(123, 75, 184, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(78, 205, 196, 0.1) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 30%, rgba(255, 107, 138, 0.08) 0%, transparent 35%);
+            animation: bgPulse 15s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-5%, -5%) scale(1.1); }
+        }
+
+        /* Neural Network Animation */
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .neuron {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--purple-glow);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--purple-light);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* App Container */
+        .app-container {
+            max-width: 430px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            background: linear-gradient(180deg, var(--purple-dark) 0%, var(--purple-darkest) 100%);
+            box-shadow: 0 0 60px rgba(123, 75, 184, 0.3);
+        }
+
+        /* Header */
+        .header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(180deg, var(--purple-deep) 0%, transparent 100%);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brain-logo {
+            width: 48px;
+            height: 48px;
+            position: relative;
+        }
+
+        .brain-logo svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 8px var(--purple-glow));
+        }
+
+        .app-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, var(--text-white) 0%, var(--purple-glow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .app-subtitle {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .profile-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            background: var(--purple-main);
+            transform: scale(1.05);
+        }
+
+        /* Patient Card */
+        .patient-card {
+            margin: 20px;
+            padding: 20px;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .patient-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .patient-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--purple-bright) 0%, var(--accent-teal) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .patient-info h3 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .patient-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--accent-mint);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-mint);
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(107, 203, 119, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(107, 203, 119, 0); }
+        }
+
+        .patient-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 12px 8px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+        }
+
+        .metric-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--purple-glow);
+        }
+
+        .metric-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            padding: 0 20px;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-tab {
+            padding: 12px 18px;
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            background: var(--glass-bg);
+            color: var(--text-white);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, var(--purple-bright) 0%, var(--purple-main) 100%);
+            border-color: transparent;
+            color: var(--text-white);
+            box-shadow: 0 4px 15px rgba(123, 75, 184, 0.4);
+        }
+
+        /* Section Container */
+        .section {
+            display: none;
+            padding: 20px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Weather Section */
+        .weather-cards {
+            display: grid;
+            gap: 15px;
+        }
+
+        .weather-card {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .weather-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .weather-type {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .weather-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .weather-icon.outdoor {
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6b8a 100%);
+        }
+
+        .weather-icon.indoor {
+            background: linear-gradient(135deg, var(--accent-teal) 0%, #45b7aa 100%);
+        }
+
+        .weather-temp {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .weather-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .weather-detail {
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .detail-icon {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .detail-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* Risk Alert */
+        .risk-alert {
+            background: linear-gradient(135deg, rgba(255, 107, 138, 0.2) 0%, rgba(255, 107, 138, 0.1) 100%);
+            border: 1px solid rgba(255, 107, 138, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .risk-alert.safe {
+            background: linear-gradient(135deg, rgba(107, 203, 119, 0.2) 0%, rgba(107, 203, 119, 0.1) 100%);
+            border-color: rgba(107, 203, 119, 0.3);
+        }
+
+        .risk-icon {
+            font-size: 1.5rem;
+        }
+
+        .risk-text h4 {
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .risk-text p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Air Quality */
+        .aqi-card {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .aqi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .aqi-value {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .aqi-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .aqi-label {
+            font-size: 0.9rem;
+            color: var(--accent-gold);
+        }
+
+        .aqi-meter {
+            height: 10px;
+            background: linear-gradient(90deg, #6bcb77 0%, #ffd93d 33%, #ff9a56 66%, #ff6b8a 100%);
+            border-radius: 5px;
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .aqi-indicator {
+            position: absolute;
+            top: -5px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: left 0.5s ease;
+        }
+
+        .aqi-pollutants {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .pollutant {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .pollutant-name {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .pollutant-value {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .brain-health-alert {
+            background: linear-gradient(135deg, rgba(255, 217, 61, 0.15) 0%, rgba(255, 217, 61, 0.05) 100%);
+            border: 1px solid rgba(255, 217, 61, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .brain-health-alert h4 {
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brain-health-alert p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Cognitive Test Section */
+        .test-intro {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .test-intro-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, var(--purple-bright) 0%, var(--accent-teal) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .test-intro h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .test-intro p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple-bright) 0%, var(--purple-main) 100%);
+            border: none;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(123, 75, 184, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(123, 75, 184, 0.5);
+        }
+
+        .test-types {
+            display: grid;
+            gap: 12px;
+        }
+
+        .test-type {
+            background: var(--glass-bg);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .test-type:hover {
+            background: var(--purple-deep);
+            border-color: var(--purple-bright);
+            transform: translateX(5px);
+        }
+
+        .test-type-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .test-type-icon.memory {
+            background: linear-gradient(135deg, #ff6b8a 0%, #ff9a56 100%);
+        }
+
+        .test-type-icon.attention {
+            background: linear-gradient(135deg, var(--accent-teal) 0%, #45b7aa 100%);
+        }
+
+        .test-type-icon.language {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #ffb347 100%);
+        }
+
+        .test-type-icon.spatial {
+            background: linear-gradient(135deg, var(--purple-bright) 0%, var(--purple-light) 100%);
+        }
+
+        .test-type-info h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .test-type-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .test-type-arrow {
+            margin-left: auto;
+            color: var(--text-muted);
+        }
+
+        /* Active Test Interface */
+        .test-active {
+            display: none;
+        }
+
+        .test-active.show {
+            display: block;
+        }
+
+        .test-progress {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .progress-dot {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+        }
+
+        .progress-dot.completed {
+            background: var(--accent-mint);
+        }
+
+        .progress-dot.current {
+            background: var(--purple-bright);
+        }
+
+        .test-question-card {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            padding: 25px;
+            text-align: center;
+        }
+
+        .test-timer {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+            margin-bottom: 20px;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 250px;
+            margin: 20px auto;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: var(--purple-deep);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .memory-card:hover {
+            border-color: var(--purple-bright);
+        }
+
+        .memory-card.revealed {
+            background: var(--purple-bright);
+        }
+
+        .memory-card.matched {
+            background: var(--accent-mint);
+        }
+
+        .test-result {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .test-result.show {
+            display: block;
+        }
+
+        .result-score {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-mint) 0%, var(--accent-teal) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Emergency Section */
+        .emergency-btn {
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b8a 100%);
+            border: none;
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            width: 100%;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 30px rgba(255, 71, 87, 0.4);
+            transition: all 0.3s ease;
+            animation: emergencyPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes emergencyPulse {
+            0%, 100% { box-shadow: 0 8px 30px rgba(255, 71, 87, 0.4); }
+            50% { box-shadow: 0 8px 40px rgba(255, 71, 87, 0.6); }
+        }
+
+        .emergency-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .emergency-btn svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .quick-contacts {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .quick-contacts h4 {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: var(--purple-deep);
+        }
+
+        .contact-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .contact-avatar.doctor {
+            background: linear-gradient(135deg, var(--accent-teal) 0%, #45b7aa 100%);
+        }
+
+        .contact-avatar.family {
+            background: linear-gradient(135deg, var(--accent-coral) 0%, #ff9a56 100%);
+        }
+
+        .contact-avatar.caregiver {
+            background: linear-gradient(135deg, var(--purple-bright) 0%, var(--purple-light) 100%);
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info h5 {
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+        }
+
+        .contact-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .contact-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .contact-action {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--purple-deep);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .contact-action:hover {
+            background: var(--purple-bright);
+        }
+
+        .safety-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .safety-feature {
+            background: var(--glass-bg);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .safety-feature:hover {
+            background: var(--purple-deep);
+            border-color: var(--purple-bright);
+        }
+
+        .safety-feature-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .safety-feature h5 {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .safety-feature p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Learning Section */
+        .learning-categories {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .learning-category {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .learning-category:hover {
+            border-color: var(--purple-bright);
+            transform: translateY(-3px);
+        }
+
+        .learning-category-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .learning-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .learning-icon.basics {
+            background: linear-gradient(135deg, var(--accent-teal) 0%, #45b7aa 100%);
+        }
+
+        .learning-icon.daily {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #ffb347 100%);
+        }
+
+        .learning-icon.communication {
+            background: linear-gradient(135deg, var(--accent-coral) 0%, #ff9a56 100%);
+        }
+
+        .learning-icon.selfcare {
+            background: linear-gradient(135deg, var(--purple-bright) 0%, var(--purple-light) 100%);
+        }
+
+        .learning-category-info {
+            flex: 1;
+        }
+
+        .learning-category-info h4 {
+            font-size: 1.05rem;
+            margin-bottom: 5px;
+        }
+
+        .learning-category-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .learning-progress {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 20px 15px;
+        }
+
+        .learning-progress-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .learning-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-mint) 0%, var(--accent-teal) 100%);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .learning-progress-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            min-width: 40px;
+        }
+
+        /* Video Card */
+        .video-section h4 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+        }
+
+        .video-carousel {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scrollbar-width: none;
+        }
+
+        .video-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .video-card {
+            min-width: 200px;
+            background: var(--glass-bg);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover {
+            border-color: var(--purple-bright);
+            transform: scale(1.02);
+        }
+
+        .video-thumbnail {
+            height: 110px;
+            background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-main) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .play-btn {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+        }
+
+        .video-info {
+            padding: 12px;
+        }
+
+        .video-info h5 {
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+
+        .video-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Learning Module Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--purple-dark);
+            border-radius: 25px;
+            border: 1px solid var(--glass-border);
+            max-width: 400px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: none;
+            color: var(--text-white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--purple-bright);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .lesson-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .lesson-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lesson-item:hover {
+            background: var(--purple-deep);
+        }
+
+        .lesson-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--purple-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .lesson-item.completed .lesson-number {
+            background: var(--accent-mint);
+        }
+
+        .lesson-info {
+            flex: 1;
+        }
+
+        .lesson-info h5 {
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+
+        .lesson-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 430px;
+            background: var(--purple-dark);
+            border-top: 1px solid var(--glass-border);
+            padding: 12px 20px 25px;
+            display: flex;
+            justify-content: space-around;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-muted);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--purple-glow);
+        }
+
+        .nav-item-icon {
+            font-size: 1.5rem;
+        }
+
+        .nav-item-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 15px 25px;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            border-color: var(--accent-mint);
+        }
+
+        .toast.emergency {
+            border-color: var(--accent-coral);
+            background: rgba(255, 107, 138, 0.2);
+        }
+
+        /* Spacer for bottom nav */
+        .bottom-spacer {
+            height: 100px;
+        }
+
+        /* Alzheimer's Association Training Styles */
+        .alz-official-banner {
+            background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-main) 100%);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid var(--purple-bright);
+            box-shadow: 0 4px 20px rgba(123, 75, 184, 0.3);
+        }
+
+        .alz-official-banner:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(123, 75, 184, 0.4);
+        }
+
+        .alz-banner-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .alz-logo {
+            width: 55px;
+            height: 55px;
+            flex-shrink: 0;
+        }
+
+        .alz-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .alz-banner-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            color: var(--text-white);
+        }
+
+        .alz-banner-text p {
+            font-size: 0.8rem;
+            color: var(--purple-glow);
+        }
+
+        .alz-banner-arrow {
+            margin-left: auto;
+            font-size: 1.5rem;
+            color: var(--purple-glow);
+        }
+
+        .training-section {
+            margin-bottom: 25px;
+        }
+
+        .training-section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-free {
+            background: var(--accent-mint);
+            color: var(--purple-darkest);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-left: auto;
+        }
+
+        .alz-courses {
+            display: grid;
+            gap: 12px;
+        }
+
+        .alz-course-card {
+            background: var(--glass-bg);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .alz-course-card:hover {
+            background: var(--purple-deep);
+            border-color: var(--purple-bright);
+            transform: translateX(5px);
+        }
+
+        .course-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .course-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .course-info h5 {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .course-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .course-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .course-tag {
+            background: rgba(123, 75, 184, 0.3);
+            color: var(--purple-glow);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .course-lang, .course-duration {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .course-arrow {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* Series Cards */
+        .series-cards {
+            display: grid;
+            gap: 12px;
+        }
+
+        .series-card {
+            background: var(--glass-bg);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            padding: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .series-card:hover {
+            background: var(--purple-deep);
+            border-color: var(--purple-bright);
+        }
+
+        .series-stage {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .series-stage.early {
+            background: rgba(107, 203, 119, 0.2);
+            color: var(--accent-mint);
+        }
+
+        .series-stage.middle {
+            background: rgba(255, 217, 61, 0.2);
+            color: var(--accent-gold);
+        }
+
+        .series-stage.late {
+            background: rgba(255, 107, 138, 0.2);
+            color: var(--accent-coral);
+        }
+
+        .series-stage.patient {
+            background: rgba(78, 205, 196, 0.2);
+            color: var(--accent-teal);
+        }
+
+        .series-stage.younger {
+            background: rgba(123, 75, 184, 0.3);
+            color: var(--purple-glow);
+        }
+
+        .series-card h5 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .series-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .series-parts {
+            display: flex;
+            gap: 8px;
+        }
+
+        .series-parts .part {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* Certification Card */
+        .certification-card {
+            background: linear-gradient(135deg, rgba(255, 217, 61, 0.1) 0%, rgba(255, 217, 61, 0.05) 100%);
+            border: 1px solid rgba(255, 217, 61, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        .certification-card:hover {
+            border-color: var(--accent-gold);
+            background: linear-gradient(135deg, rgba(255, 217, 61, 0.15) 0%, rgba(255, 217, 61, 0.08) 100%);
+        }
+
+        .cert-badge {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+        }
+
+        .cert-badge svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .cert-info {
+            flex: 1;
+        }
+
+        .cert-info h5 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+            color: var(--accent-gold);
+        }
+
+        .cert-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .cert-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .cert-features span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .cert-price {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            font-weight: 500;
+        }
+
+        /* ECHO Program */
+        .echo-program {
+            background: var(--glass-bg);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .echo-program:hover {
+            background: var(--purple-deep);
+            border-color: var(--purple-bright);
+        }
+
+        .echo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--accent-teal) 0%, #45b7aa 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .echo-info {
+            flex: 1;
+        }
+
+        .echo-info h5 {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .echo-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        /* Progress Overview */
+        .progress-overview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .progress-stat {
+            background: var(--glass-bg);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            padding: 15px 10px;
+            text-align: center;
+        }
+
+        .progress-circle {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 8px;
+            position: relative;
+        }
+
+        .progress-circle svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .progress-circle span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent-mint);
+        }
+
+        .progress-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--purple-glow);
+            margin-bottom: 5px;
+        }
+
+        .progress-stat p {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* Helpline Card */
+        .helpline-card {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.15) 0%, rgba(78, 205, 196, 0.05) 100%);
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .helpline-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .helpline-info h5 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .helpline-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .helpline-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+            text-decoration: none;
+        }
+
+        .helpline-number:hover {
+            text-decoration: underline;
+        }
+
+        /* Video Grid Styles */
+        .video-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .video-card-large {
+            background: var(--glass-bg);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-card-large:hover {
+            border-color: var(--purple-bright);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(123, 75, 184, 0.3);
+        }
+
+        .video-thumbnail-large {
+            position: relative;
+            height: 160px;
+            background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-main) 100%);
+            overflow: hidden;
+        }
+
+        .video-thumbnail-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-card-large:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-btn-large {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--purple-main);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--purple-bright);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .video-badge.ted {
+            background: linear-gradient(135deg, #e62b1e 0%, #ff4136 100%);
+        }
+
+        .video-details {
+            padding: 15px;
+        }
+
+        .video-details h5 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .video-details p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .video-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .yt-icon {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.75rem;
+            color: #ff0000;
+            font-weight: 500;
+        }
+
+        /* Video Modal Styles */
+        .video-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-modal-overlay.show {
+            opacity: 1;
+        }
+
+        .video-modal-content {
+            width: 100%;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .video-modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Responsive */
+        @media (max-width: 430px) {
+            .app-container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="neural-bg" id="neuralBg"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="brain-logo">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#b88de8"/>
+                                <stop offset="100%" style="stop-color:#4ecdc4"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M50 10C35 10 25 20 25 35C20 35 15 42 15 50C15 58 20 65 28 67C28 78 38 88 50 88C62 88 72 78 72 67C80 65 85 58 85 50C85 42 80 35 75 35C75 20 65 10 50 10Z" stroke="url(#brainGrad)" stroke-width="3" fill="none"/>
+                        <path d="M50 20V80" stroke="url(#brainGrad)" stroke-width="2" opacity="0.6"/>
+                        <path d="M35 30C40 35 45 32 50 37C55 32 60 35 65 30" stroke="url(#brainGrad)" stroke-width="2" fill="none"/>
+                        <path d="M30 45C38 50 42 45 50 50C58 45 62 50 70 45" stroke="url(#brainGrad)" stroke-width="2" fill="none"/>
+                        <path d="M32 60C40 65 45 60 50 65C55 60 60 65 68 60" stroke="url(#brainGrad)" stroke-width="2" fill="none"/>
+                        <circle cx="35" cy="40" r="3" fill="url(#brainGrad)" opacity="0.8"/>
+                        <circle cx="65" cy="40" r="3" fill="url(#brainGrad)" opacity="0.8"/>
+                        <circle cx="40" cy="55" r="2.5" fill="url(#brainGrad)" opacity="0.6"/>
+                        <circle cx="60" cy="55" r="2.5" fill="url(#brainGrad)" opacity="0.6"/>
+                        <circle cx="50" cy="70" r="3" fill="url(#brainGrad)" opacity="0.8"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="app-title">ALZ-CARE</div>
+                    <div class="app-subtitle">Adaptive Resilience Ecosystem</div>
+                </div>
+            </div>
+            <button class="profile-btn" onclick="showToast('Profile settings')">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="8" r="4"/>
+                    <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+                </svg>
+            </button>
+        </header>
+
+        <!-- Patient Card -->
+        <div class="patient-card">
+            <div class="patient-header">
+                <div class="patient-avatar">EM</div>
+                <div class="patient-info">
+                    <h3>Eleanor Mitchell</h3>
+                    <div class="patient-status">
+                        <span class="status-dot"></span>
+                        Home • Stable Condition
+                    </div>
+                </div>
+            </div>
+            <div class="patient-metrics">
+                <div class="metric">
+                    <div class="metric-value">78</div>
+                    <div class="metric-label">Age</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">Stage 4</div>
+                    <div class="metric-label">Condition</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">3 Yrs</div>
+                    <div class="metric-label">Diagnosed</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchSection('weather')">Weather</button>
+            <button class="nav-tab" onclick="switchSection('cognitive')">Cognitive Test</button>
+            <button class="nav-tab" onclick="switchSection('emergency')">Emergency</button>
+            <button class="nav-tab" onclick="switchSection('learning')">Learning</button>
+        </div>
+
+        <!-- Weather Section -->
+        <section id="weather" class="section active">
+            <h2 class="section-title">
+                <span>🌤️</span> Weather & Air Quality
+            </h2>
+            
+            <div class="weather-cards">
+                <!-- Outdoor Weather -->
+                <div class="weather-card">
+                    <div class="weather-card-header">
+                        <div class="weather-type">
+                            <div class="weather-icon outdoor">☀️</div>
+                            <div>
+                                <h4>Outdoor</h4>
+                                <p style="font-size: 0.8rem; color: var(--text-muted);">Tucson, AZ</p>
+                            </div>
+                        </div>
+                        <div class="weather-temp">84°F</div>
+                    </div>
+                    <div class="weather-details">
+                        <div class="weather-detail">
+                            <div class="detail-icon">💧</div>
+                            <div class="detail-value">18%</div>
+                            <div class="detail-label">Humidity</div>
+                        </div>
+                        <div class="weather-detail">
+                            <div class="detail-icon">🌡️</div>
+                            <div class="detail-value">92°F</div>
+                            <div class="detail-label">Feels Like</div>
+                        </div>
+                        <div class="weather-detail">
+                            <div class="detail-icon">☀️</div>
+                            <div class="detail-value">High</div>
+                            <div class="detail-label">UV Index</div>
+                        </div>
+                    </div>
+                    <div class="risk-alert">
+                        <div class="risk-icon">⚠️</div>
+                        <div class="risk-text">
+                            <h4>Heat Advisory for Alzheimer's Patients</h4>
+                            <p>High temperatures increase confusion and dehydration risk. Keep Eleanor indoors with AC between 10 AM - 4 PM. Ensure 8+ glasses of water intake.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indoor Environment -->
+                <div class="weather-card">
+                    <div class="weather-card-header">
+                        <div class="weather-type">
+                            <div class="weather-icon indoor">🏠</div>
+                            <div>
+                                <h4>Indoor</h4>
+                                <p style="font-size: 0.8rem; color: var(--text-muted);">Living Room</p>
+                            </div>
+                        </div>
+                        <div class="weather-temp">72°F</div>
+                    </div>
+                    <div class="weather-details">
+                        <div class="weather-detail">
+                            <div class="detail-icon">💧</div>
+                            <div class="detail-value">45%</div>
+                            <div class="detail-label">Humidity</div>
+                        </div>
+                        <div class="weather-detail">
+                            <div class="detail-icon">💨</div>
+                            <div class="detail-value">Good</div>
+                            <div class="detail-label">Air Flow</div>
+                        </div>
+                        <div class="weather-detail">
+                            <div class="detail-icon">💡</div>
+                            <div class="detail-value">Optimal</div>
+                            <div class="detail-label">Lighting</div>
+                        </div>
+                    </div>
+                    <div class="risk-alert safe">
+                        <div class="risk-icon">✅</div>
+                        <div class="risk-text">
+                            <h4>Optimal Indoor Conditions</h4>
+                            <p>Temperature and humidity levels are within the recommended range for cognitive comfort. Continue monitoring throughout the day.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Air Quality -->
+            <div class="aqi-card">
+                <div class="aqi-header">
+                    <div>
+                        <h4 style="font-size: 1rem; margin-bottom: 5px;">Air Quality Index</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Moderate - Use caution</p>
+                    </div>
+                    <div class="aqi-value">
+                        <span class="aqi-number">78</span>
+                        <span class="aqi-label">AQI</span>
+                    </div>
+                </div>
+                
+                <div class="aqi-meter">
+                    <div class="aqi-indicator" style="left: calc(78% / 1.5 - 10px);"></div>
+                </div>
+
+                <div class="aqi-pollutants">
+                    <div class="pollutant">
+                        <span class="pollutant-name">PM2.5</span>
+                        <span class="pollutant-value" style="color: var(--accent-gold);">24 µg/m³</span>
+                    </div>
+                    <div class="pollutant">
+                        <span class="pollutant-name">PM10</span>
+                        <span class="pollutant-value" style="color: var(--accent-mint);">18 µg/m³</span>
+                    </div>
+                    <div class="pollutant">
+                        <span class="pollutant-name">Ozone</span>
+                        <span class="pollutant-value" style="color: var(--accent-gold);">45 ppb</span>
+                    </div>
+                    <div class="pollutant">
+                        <span class="pollutant-name">NO₂</span>
+                        <span class="pollutant-value" style="color: var(--accent-mint);">12 ppb</span>
+                    </div>
+                </div>
+
+                <div class="brain-health-alert">
+                    <h4>🧠 Brain Health & Air Quality</h4>
+                    <p>Research shows long-term exposure to air pollution (especially PM2.5) is linked to accelerated cognitive decline in Alzheimer's patients. Current PM2.5 levels are slightly elevated. Consider using HEPA air purifiers indoors and limiting outdoor exposure during peak pollution hours.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cognitive Test Section -->
+        <section id="cognitive" class="section">
+            <h2 class="section-title">
+                <span>🧩</span> Digital Cognitive Assessment
+            </h2>
+
+            <div id="testIntro">
+                <div class="test-intro">
+                    <div class="test-intro-icon">🧠</div>
+                    <h3>Daily Cognitive Check</h3>
+                    <p>Quick assessments to track cognitive function over time. Results are shared with healthcare providers.</p>
+                    <button class="btn-primary" onclick="startMemoryTest()">Start Today's Assessment</button>
+                </div>
+
+                <div class="test-types">
+                    <div class="test-type" onclick="startMemoryTest()">
+                        <div class="test-type-icon memory">🎴</div>
+                        <div class="test-type-info">
+                            <h4>Memory Match</h4>
+                            <p>Test short-term visual memory</p>
+                        </div>
+                        <span class="test-type-arrow">→</span>
+                    </div>
+                    <div class="test-type" onclick="startAttentionTest()">
+                        <div class="test-type-icon attention">🎯</div>
+                        <div class="test-type-info">
+                            <h4>Attention Focus</h4>
+                            <p>Measure concentration ability</p>
+                        </div>
+                        <span class="test-type-arrow">→</span>
+                    </div>
+                    <div class="test-type" onclick="startWordTest()">
+                        <div class="test-type-icon language">📝</div>
+                        <div class="test-type-info">
+                            <h4>Word Recall</h4>
+                            <p>Assess verbal memory</p>
+                        </div>
+                        <span class="test-type-arrow">→</span>
+                    </div>
+                    <div class="test-type" onclick="startPatternTest()">
+                        <div class="test-type-icon spatial">🔷</div>
+                        <div class="test-type-info">
+                            <h4>Pattern Recognition</h4>
+                            <p>Evaluate spatial reasoning</p>
+                        </div>
+                        <span class="test-type-arrow">→</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="testActive" class="test-active">
+                <div class="test-progress" id="testProgress">
+                    <div class="progress-dot completed"></div>
+                    <div class="progress-dot current"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
+                </div>
+
+                <div class="test-question-card">
+                    <div class="test-timer" id="testTimer">0:30</div>
+                    <h3 id="testQuestion" style="margin-bottom: 20px;">Find the matching pairs!</h3>
+                    
+                    <div class="memory-grid" id="memoryGrid">
+                        <!-- Cards will be inserted by JS -->
+                    </div>
+
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 15px;">Tap cards to reveal and match pairs</p>
+                </div>
+
+                <button class="btn-primary" style="width: 100%; margin-top: 20px;" onclick="endTest()">End Assessment</button>
+            </div>
+
+            <div id="testResult" class="test-result">
+                <div class="test-question-card">
+                    <h3 style="margin-bottom: 10px;">Assessment Complete!</h3>
+                    <div class="result-score" id="resultScore">85%</div>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">Great performance! Consistent with recent assessments.</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;">
+                        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px;">
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-mint);">4/5</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Pairs Found</div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px;">
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-teal);">24s</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Time Taken</div>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" onclick="resetTest()">Try Another Test</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Emergency Section -->
+        <section id="emergency" class="section">
+            <h2 class="section-title">
+                <span>🚨</span> Emergency Support
+            </h2>
+
+            <button class="emergency-btn" onclick="triggerEmergency()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                </svg>
+                EMERGENCY CALL 911
+            </button>
+
+            <div class="quick-contacts">
+                <h4>Quick Contacts</h4>
+                <div class="contact-list">
+                    <div class="contact-item" onclick="callContact('Dr. Sarah Chen')">
+                        <div class="contact-avatar doctor">SC</div>
+                        <div class="contact-info">
+                            <h5>Dr. Sarah Chen</h5>
+                            <p>Primary Neurologist</p>
+                        </div>
+                        <div class="contact-actions">
+                            <div class="contact-action">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-item" onclick="callContact('Michael (Son)')">
+                        <div class="contact-avatar family">M</div>
+                        <div class="contact-info">
+                            <h5>Michael (Son)</h5>
+                            <p>Primary Family Contact</p>
+                        </div>
+                        <div class="contact-actions">
+                            <div class="contact-action">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-item" onclick="callContact('Maria (Caregiver)')">
+                        <div class="contact-avatar caregiver">MR</div>
+                        <div class="contact-info">
+                            <h5>Maria Rodriguez</h5>
+                            <p>Professional Caregiver</p>
+                        </div>
+                        <div class="contact-actions">
+                            <div class="contact-action">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="safety-features">
+                <div class="safety-feature" onclick="activateFeature('GPS Tracking')">
+                    <div class="safety-feature-icon">📍</div>
+                    <h5>GPS Tracking</h5>
+                    <p>Real-time location</p>
+                </div>
+                <div class="safety-feature" onclick="activateFeature('Fall Detection')">
+                    <div class="safety-feature-icon">🛡️</div>
+                    <h5>Fall Detection</h5>
+                    <p>Auto-alert system</p>
+                </div>
+                <div class="safety-feature" onclick="activateFeature('Safe Zone')">
+                    <div class="safety-feature-icon">🏠</div>
+                    <h5>Safe Zone Alert</h5>
+                    <p>Wandering prevention</p>
+                </div>
+                <div class="safety-feature" onclick="activateFeature('Medical ID')">
+                    <div class="safety-feature-icon">💳</div>
+                    <h5>Medical ID</h5>
+                    <p>Emergency info</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; background: var(--glass-bg); border-radius: 15px; padding: 20px; border: 1px solid var(--glass-border);">
+                <h4 style="font-size: 0.9rem; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+                    <span>📋</span> Emergency Information
+                </h4>
+                <div style="display: grid; gap: 10px; font-size: 0.85rem;">
+                    <div style="display: flex; justify-content: space-between; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                        <span style="color: var(--text-muted);">Blood Type</span>
+                        <span style="font-weight: 600;">A+</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                        <span style="color: var(--text-muted);">Allergies</span>
+                        <span style="font-weight: 600;">Penicillin</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                        <span style="color: var(--text-muted);">Medications</span>
+                        <span style="font-weight: 600;">Donepezil, Memantine</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                        <span style="color: var(--text-muted);">Insurance</span>
+                        <span style="font-weight: 600;">Medicare #12345</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Section -->
+        <section id="learning" class="section">
+            <h2 class="section-title">
+                <span>📚</span> Caregiver Learning Hub
+            </h2>
+
+            <!-- Alzheimer's Association Official Training Banner -->
+            <div class="alz-official-banner" onclick="window.open('https://training.alz.org/', '_blank')">
+                <div class="alz-banner-content">
+                    <div class="alz-logo">
+                        <svg viewBox="0 0 60 60" fill="none">
+                            <circle cx="30" cy="30" r="28" stroke="#7b4bb8" stroke-width="3" fill="rgba(123,75,184,0.2)"/>
+                            <path d="M30 12L30 48M20 20C25 25 25 35 20 40M40 20C35 25 35 35 40 40" stroke="#b88de8" stroke-width="2.5" stroke-linecap="round"/>
+                            <circle cx="30" cy="30" r="6" fill="#b88de8"/>
+                        </svg>
+                    </div>
+                    <div class="alz-banner-text">
+                        <h4>Alzheimer's Association®</h4>
+                        <p>Official Training Programs • training.alz.org</p>
+                    </div>
+                    <span class="alz-banner-arrow">→</span>
+                </div>
+            </div>
+
+            <!-- Free Online Programs Section -->
+            <div class="training-section">
+                <h4 class="training-section-title">
+                    <span>🎓</span> Free Online Programs
+                    <span class="badge-free">FREE</span>
+                </h4>
+                
+                <div class="alz-courses">
+                    <div class="alz-course-card" onclick="openAlzCourse('warning-signs')">
+                        <div class="course-icon" style="background: linear-gradient(135deg, #ff6b8a 0%, #ff9a56 100%);">⚠️</div>
+                        <div class="course-info">
+                            <h5>10 Warning Signs of Alzheimer's</h5>
+                            <p>Learn to recognize early signs in yourself and others</p>
+                            <div class="course-meta">
+                                <span class="course-tag">Beginner</span>
+                                <span class="course-lang">🌐 English & Spanish</span>
+                            </div>
+                        </div>
+                        <span class="course-arrow">→</span>
+                    </div>
+
+                    <div class="alz-course-card" onclick="openAlzCourse('understanding')">
+                        <div class="course-icon" style="background: linear-gradient(135deg, var(--accent-teal) 0%, #45b7aa 100%);">🧠</div>
+                        <div class="course-info">
+                            <h5>Understanding Alzheimer's & Dementia</h5>
+                            <p>Difference between Alzheimer's and dementia, stages, risk factors</p>
+                            <div class="course-meta">
+                                <span class="course-tag">Beginner</span>
+                                <span class="course-lang">🌐 English & Spanish</span>
+                            </div>
+                        </div>
+                        <span class="course-arrow">→</span>
+                    </div>
+
+                    <div class="alz-course-card" onclick="openAlzCourse('behavior')">
+                        <div class="course-icon" style="background: linear-gradient(135deg, var(--accent-gold) 0%, #ffb347 100%);">💭</div>
+                        <div class="course-info">
+                            <h5>Understanding & Responding to Dementia-Related Behavior</h5>
+                            <p>Common triggers, assessing needs, and effective intervention</p>
+                            <div class="course-meta">
+                                <span class="course-tag">Intermediate</span>
+                                <span class="course-duration">📖 Self-paced</span>
+                            </div>
+                        </div>
+                        <span class="course-arrow">→</span>
+                    </div>
+
+                    <div class="alz-course-card" onclick="openAlzCourse('communication')">
+                        <div class="course-icon" style="background: linear-gradient(135deg, var(--purple-bright) 0%, var(--purple-light) 100%);">💬</div>
+                        <div class="course-info">
+                            <h5>Effective Communication Strategies</h5>
+                            <p>Decode verbal and behavioral messages, connect and communicate</p>
+                            <div class="course-meta">
+                                <span class="course-tag">Intermediate</span>
+                                <span class="course-duration">📖 Self-paced</span>
+                            </div>
+                        </div>
+                        <span class="course-arrow">→</span>
+                    </div>
+
+                    <div class="alz-course-card" onclick="openAlzCourse('conversations')">
+                        <div class="course-icon" style="background: linear-gradient(135deg, #6bcb77 0%, #4ecdc4 100%);">🗣️</div>
+                        <div class="course-info">
+                            <h5>Dementia Conversations</h5>
+                            <p>Driving, doctor visits, legal & financial planning discussions</p>
+                            <div class="course-meta">
+                                <span class="course-tag">All Levels</span>
+                                <span class="course-duration">📖 Self-paced</span>
+                            </div>
+                        </div>
+                        <span class="course-arrow">→</span>
+                    </div>
+
+                    <div class="alz-course-card" onclick="openAlzCourse('money')">
+                        <div class="course-icon" style="background: linear-gradient(135deg, #ffd93d 0%, #ff9a56 100%);">💰</div>
+                        <div class="course-info">
+                            <h5>Managing Money</h5>
+                            <p>Costs of caregiving, avoiding fraud, financial planning</p>
+                            <div class="course-meta">
+                                <span class="course-tag">All Levels</span>
+                                <span class="course-lang">🌐 English & Spanish</span>
+                            </div>
+                        </div>
+                        <span class="course-arrow">→</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Living with Alzheimer's Series -->
+            <div class="training-section">
+                <h4 class="training-section-title">
+                    <span>❤️</span> Living with Alzheimer's Series
+                </h4>
+
+                <div class="series-cards">
+                    <div class="series-card" onclick="openAlzCourse('living-early')">
+                        <div class="series-stage early">Early Stage</div>
+                        <h5>For Caregivers: Early Stage</h5>
+                        <p>A three-part program with practical answers for families adjusting to early stage diagnosis</p>
+                        <div class="series-parts">
+                            <span class="part">Part 1</span>
+                            <span class="part">Part 2</span>
+                            <span class="part">Part 3</span>
+                        </div>
+                    </div>
+
+                    <div class="series-card" onclick="openAlzCourse('living-middle')">
+                        <div class="series-stage middle">Middle Stage</div>
+                        <h5>For Caregivers: Middle Stage</h5>
+                        <p>Navigate the challenges of increased care needs during the middle stage</p>
+                        <div class="series-parts">
+                            <span class="part">Part 1</span>
+                            <span class="part">Part 2</span>
+                            <span class="part">Part 3</span>
+                        </div>
+                    </div>
+
+                    <div class="series-card" onclick="openAlzCourse('living-late')">
+                        <div class="series-stage late">Late Stage</div>
+                        <h5>For Caregivers: Late Stage</h5>
+                        <p>New ways of connecting, monitoring care, and meaningful engagement</p>
+                        <div class="series-parts">
+                            <span class="part">Part 1</span>
+                            <span class="part">Part 2</span>
+                        </div>
+                    </div>
+
+                    <div class="series-card" onclick="openAlzCourse('living-patient')">
+                        <div class="series-stage patient">For Patients</div>
+                        <h5>For People with Alzheimer's</h5>
+                        <p>Hear from others and learn to navigate this chapter of your life</p>
+                        <div class="series-parts">
+                            <span class="part">Part 1</span>
+                            <span class="part">Part 2</span>
+                            <span class="part">Part 3</span>
+                        </div>
+                    </div>
+
+                    <div class="series-card" onclick="openAlzCourse('living-younger')">
+                        <div class="series-stage younger">Younger-Onset</div>
+                        <h5>For Younger-Onset Alzheimer's</h5>
+                        <p>Answers about early-onset diagnosis and easing the impact</p>
+                        <div class="series-parts">
+                            <span class="part">Multi-part</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professional Certification -->
+            <div class="training-section">
+                <h4 class="training-section-title">
+                    <span>🏆</span> Professional Certification
+                </h4>
+
+                <div class="certification-card" onclick="window.open('https://www.alz.org/professionals/professional-providers/dementia-care-training-certification/essentialz-training-program-certification', '_blank')">
+                    <div class="cert-badge">
+                        <svg viewBox="0 0 50 50" fill="none">
+                            <circle cx="25" cy="25" r="22" stroke="var(--accent-gold)" stroke-width="2" fill="rgba(255,217,61,0.1)"/>
+                            <path d="M25 10L28 20H38L30 26L33 36L25 30L17 36L20 26L12 20H22L25 10Z" fill="var(--accent-gold)"/>
+                        </svg>
+                    </div>
+                    <div class="cert-info">
+                        <h5>essentiALZ® Certification</h5>
+                        <p>Alzheimer's Association Training & Certification for professional caregivers in long-term and community-based settings</p>
+                        <div class="cert-features">
+                            <span>✓ Person-centered care practices</span>
+                            <span>✓ Continuing education credits</span>
+                            <span>✓ 2-year certification</span>
+                        </div>
+                        <div class="cert-price">$59.99 individual • Volume discounts available</div>
+                    </div>
+                    <span class="course-arrow">→</span>
+                </div>
+
+                <div class="echo-program" onclick="window.open('https://www.alz.org/professionals/health-systems-medical-professionals/echo-alzheimers-dementia-care-program', '_blank')">
+                    <div class="echo-icon">🔄</div>
+                    <div class="echo-info">
+                        <h5>Alzheimer's & Dementia Care ECHO® Program</h5>
+                        <p>Free 6-month telementoring for medical professionals with expert teams</p>
+                        <span class="badge-free">FREE CME Credits</span>
+                    </div>
+                    <span class="course-arrow">→</span>
+                </div>
+            </div>
+
+            <!-- Your Progress Section -->
+            <div class="training-section">
+                <h4 class="training-section-title">
+                    <span>📊</span> Your Learning Progress
+                </h4>
+
+                <div class="progress-overview">
+                    <div class="progress-stat">
+                        <div class="progress-circle">
+                            <svg viewBox="0 0 60 60">
+                                <circle cx="30" cy="30" r="26" stroke="rgba(255,255,255,0.1)" stroke-width="6" fill="none"/>
+                                <circle cx="30" cy="30" r="26" stroke="var(--accent-mint)" stroke-width="6" fill="none" 
+                                    stroke-dasharray="163.36" stroke-dashoffset="81.68" transform="rotate(-90 30 30)"/>
+                            </svg>
+                            <span>50%</span>
+                        </div>
+                        <p>Courses Completed</p>
+                    </div>
+                    <div class="progress-stat">
+                        <div class="progress-number">4</div>
+                        <p>Certificates Earned</p>
+                    </div>
+                    <div class="progress-stat">
+                        <div class="progress-number">12h</div>
+                        <p>Learning Time</p>
+                    </div>
+                </div>
+
+                <div class="learning-categories">
+                    <div class="learning-category" onclick="openLearningModule('basics')">
+                        <div class="learning-category-header">
+                            <div class="learning-icon basics">🧠</div>
+                            <div class="learning-category-info">
+                                <h4>Understanding Alzheimer's</h4>
+                                <p>Disease basics, stages & progression</p>
+                            </div>
+                        </div>
+                        <div class="learning-progress">
+                            <div class="learning-progress-bar">
+                                <div class="learning-progress-fill" style="width: 75%;"></div>
+                            </div>
+                            <span class="learning-progress-text">75%</span>
+                        </div>
+                    </div>
+
+                    <div class="learning-category" onclick="openLearningModule('daily')">
+                        <div class="learning-category-header">
+                            <div class="learning-icon daily">🌅</div>
+                            <div class="learning-category-info">
+                                <h4>Daily Care Routines</h4>
+                                <p>Bathing, dressing, meals & activities</p>
+                            </div>
+                        </div>
+                        <div class="learning-progress">
+                            <div class="learning-progress-bar">
+                                <div class="learning-progress-fill" style="width: 45%;"></div>
+                            </div>
+                            <span class="learning-progress-text">45%</span>
+                        </div>
+                    </div>
+
+                    <div class="learning-category" onclick="openLearningModule('communication')">
+                        <div class="learning-category-header">
+                            <div class="learning-icon communication">💬</div>
+                            <div class="learning-category-info">
+                                <h4>Communication Strategies</h4>
+                                <p>Effective ways to connect & comfort</p>
+                            </div>
+                        </div>
+                        <div class="learning-progress">
+                            <div class="learning-progress-bar">
+                                <div class="learning-progress-fill" style="width: 30%;"></div>
+                            </div>
+                            <span class="learning-progress-text">30%</span>
+                        </div>
+                    </div>
+
+                    <div class="learning-category" onclick="openLearningModule('selfcare')">
+                        <div class="learning-category-header">
+                            <div class="learning-icon selfcare">💜</div>
+                            <div class="learning-category-info">
+                                <h4>Caregiver Self-Care</h4>
+                                <p>Managing stress & preventing burnout</p>
+                            </div>
+                        </div>
+                        <div class="learning-progress">
+                            <div class="learning-progress-bar">
+                                <div class="learning-progress-fill" style="width: 60%;"></div>
+                            </div>
+                            <span class="learning-progress-text">60%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Helpline -->
+            <div class="helpline-card">
+                <div class="helpline-icon">📞</div>
+                <div class="helpline-info">
+                    <h5>24/7 Helpline</h5>
+                    <p>Free support for education and assistance</p>
+                    <a href="tel:8002723900" class="helpline-number">800.272.3900</a>
+                </div>
+            </div>
+
+            <!-- Video Resources Section -->
+            <div class="training-section" style="margin-top: 25px;">
+                <h4 class="training-section-title">
+                    <span>🎬</span> Educational Videos
+                </h4>
+
+                <div class="video-grid">
+                    <div class="video-card-large" onclick="playYouTubeVideo('0k_f5kBgjHQ')">
+                        <div class="video-thumbnail-large">
+                            <img src="https://img.youtube.com/vi/0k_f5kBgjHQ/mqdefault.jpg" alt="What is Alzheimer's Disease" onerror="this.style.display='none'">
+                            <div class="play-overlay">
+                                <div class="play-btn-large">▶</div>
+                            </div>
+                            <span class="video-badge">Educational</span>
+                        </div>
+                        <div class="video-details">
+                            <h5>What is Alzheimer's Disease?</h5>
+                            <p>Understanding the basics of Alzheimer's disease, symptoms, and brain changes</p>
+                            <div class="video-meta-row">
+                                <span class="yt-icon">▶ YouTube</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="video-card-large" onclick="playYouTubeVideo('QzkcSyae_nU')">
+                        <div class="video-thumbnail-large">
+                            <img src="https://img.youtube.com/vi/QzkcSyae_nU/mqdefault.jpg" alt="Dementia Caregiving" onerror="this.style.display='none'">
+                            <div class="play-overlay">
+                                <div class="play-btn-large">▶</div>
+                            </div>
+                            <span class="video-badge">Caregiving</span>
+                        </div>
+                        <div class="video-details">
+                            <h5>Dementia Caregiving Tips</h5>
+                            <p>Essential strategies and techniques for caring for someone with dementia</p>
+                            <div class="video-meta-row">
+                                <span class="yt-icon">▶ YouTube</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="video-card-large" onclick="playYouTubeVideo('jZZ274HKIiA')">
+                        <div class="video-thumbnail-large">
+                            <img src="https://img.youtube.com/vi/jZZ274HKIiA/mqdefault.jpg" alt="Alzheimer's Research" onerror="this.style.display='none'">
+                            <div class="play-overlay">
+                                <div class="play-btn-large">▶</div>
+                            </div>
+                            <span class="video-badge">Research</span>
+                        </div>
+                        <div class="video-details">
+                            <h5>Understanding Dementia</h5>
+                            <p>Latest insights into dementia research and treatment approaches</p>
+                            <div class="video-meta-row">
+                                <span class="yt-icon">▶ YouTube</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="video-card-large" onclick="playYouTubeVideo('xyQY8a-ng6g')">
+                        <div class="video-thumbnail-large">
+                            <img src="https://img.youtube.com/vi/xyQY8a-ng6g/mqdefault.jpg" alt="Food and Brain Health" onerror="this.style.display='none'">
+                            <div class="play-overlay">
+                                <div class="play-btn-large">▶</div>
+                            </div>
+                            <span class="video-badge ted">TED-Ed</span>
+                        </div>
+                        <div class="video-details">
+                            <h5>How Food Affects Your Brain</h5>
+                            <p>TED-Ed: Mia Nacamulli explains how nutrition impacts brain function and cognitive health</p>
+                            <div class="video-meta-row">
+                                <span class="yt-icon">▶ YouTube</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <div class="bottom-spacer"></div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a class="nav-item active" onclick="switchBottomNav(this, 'weather')">
+                <span class="nav-item-icon">🏠</span>
+                <span class="nav-item-label">Home</span>
+            </a>
+            <a class="nav-item" onclick="switchBottomNav(this, 'cognitive')">
+                <span class="nav-item-icon">🧩</span>
+                <span class="nav-item-label">Tests</span>
+            </a>
+            <a class="nav-item" onclick="switchBottomNav(this, 'emergency')">
+                <span class="nav-item-icon">🚨</span>
+                <span class="nav-item-label">SOS</span>
+            </a>
+            <a class="nav-item" onclick="switchBottomNav(this, 'learning')">
+                <span class="nav-item-icon">📚</span>
+                <span class="nav-item-label">Learn</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Learning Module Modal -->
+    <div class="modal-overlay" id="learningModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Understanding Alzheimer's</h3>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="lesson-list" id="lessonList">
+                    <!-- Lessons will be inserted by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Create neural network background
+        function createNeurons() {
+            const container = document.getElementById('neuralBg');
+            for (let i = 0; i < 20; i++) {
+                const neuron = document.createElement('div');
+                neuron.className = 'neuron';
+                neuron.style.left = Math.random() * 100 + '%';
+                neuron.style.top = Math.random() * 100 + '%';
+                neuron.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(neuron);
+            }
+        }
+        createNeurons();
+
+        // Section switching
+        function switchSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function switchBottomNav(elem, sectionId) {
+            document.querySelectorAll('.bottom-nav .nav-item').forEach(n => n.classList.remove('active'));
+            elem.classList.add('active');
+            
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update top tabs
+            document.querySelectorAll('.nav-tab').forEach(t => {
+                t.classList.remove('active');
+                if (t.textContent.toLowerCase().includes(sectionId.substring(0, 4))) {
+                    t.classList.add('active');
+                }
+            });
+        }
+
+        // Toast notifications
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Memory Test Game
+        const emojis = ['🌟', '🎈', '🌸', '🦋', '🌈', '🎨'];
+        let cards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let timerInterval;
+        let timeLeft = 30;
+
+        function startMemoryTest() {
+            document.getElementById('testIntro').style.display = 'none';
+            document.getElementById('testActive').classList.add('show');
+            document.getElementById('testResult').classList.remove('show');
+            
+            // Reset game
+            matchedPairs = 0;
+            flippedCards = [];
+            timeLeft = 30;
+            
+            // Create cards
+            cards = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
+            const grid = document.getElementById('memoryGrid');
+            grid.innerHTML = '';
+            
+            cards.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.index = index;
+                card.dataset.emoji = emoji;
+                card.onclick = () => flipCard(card);
+                grid.appendChild(card);
+            });
+
+            // Start timer
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById('testTimer').textContent = `0:${timeLeft.toString().padStart(2, '0')}`;
+                if (timeLeft <= 0) {
+                    endTest();
+                }
+            }, 1000);
+        }
+
+        function flipCard(card) {
+            if (flippedCards.length >= 2 || card.classList.contains('revealed') || card.classList.contains('matched')) return;
+            
+            card.classList.add('revealed');
+            card.textContent = card.dataset.emoji;
+            flippedCards.push(card);
+
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 500);
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            
+            if (card1.dataset.emoji === card2.dataset.emoji) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                
+                if (matchedPairs === 6) {
+                    setTimeout(endTest, 500);
+                }
+            } else {
+                card1.classList.remove('revealed');
+                card2.classList.remove('revealed');
+                card1.textContent = '';
+                card2.textContent = '';
+            }
+            
+            flippedCards = [];
+        }
+
+        function endTest() {
+            clearInterval(timerInterval);
+            document.getElementById('testActive').classList.remove('show');
+            document.getElementById('testResult').classList.add('show');
+            
+            const score = Math.round((matchedPairs / 6) * 100);
+            document.getElementById('resultScore').textContent = score + '%';
+        }
+
+        function resetTest() {
+            document.getElementById('testIntro').style.display = 'block';
+            document.getElementById('testActive').classList.remove('show');
+            document.getElementById('testResult').classList.remove('show');
+        }
+
+        function startAttentionTest() {
+            showToast('Starting Attention Test...', 'success');
+            startMemoryTest();
+        }
+
+        function startWordTest() {
+            showToast('Starting Word Recall Test...', 'success');
+            startMemoryTest();
+        }
+
+        function startPatternTest() {
+            showToast('Starting Pattern Recognition...', 'success');
+            startMemoryTest();
+        }
+
+        // Emergency functions
+        function triggerEmergency() {
+            showToast('🚨 Connecting to 911...', 'emergency');
+        }
+
+        function callContact(name) {
+            showToast(`📞 Calling ${name}...`, 'success');
+        }
+
+        function activateFeature(feature) {
+            showToast(`✓ ${feature} activated`, 'success');
+        }
+
+        // Learning module
+        const learningModules = {
+            basics: {
+                title: 'Understanding Alzheimer\'s',
+                lessons: [
+                    { name: 'What is Alzheimer\'s Disease?', duration: '10 min', completed: true },
+                    { name: 'The 7 Stages of Alzheimer\'s', duration: '15 min', completed: true },
+                    { name: 'Early Warning Signs', duration: '8 min', completed: true },
+                    { name: 'Brain Changes in Alzheimer\'s', duration: '12 min', completed: false },
+                    { name: 'Risk Factors & Prevention', duration: '10 min', completed: false }
+                ]
+            },
+            daily: {
+                title: 'Daily Care Routines',
+                lessons: [
+                    { name: 'Creating a Safe Environment', duration: '12 min', completed: true },
+                    { name: 'Bathing & Personal Hygiene', duration: '15 min', completed: true },
+                    { name: 'Meal Planning & Feeding', duration: '10 min', completed: false },
+                    { name: 'Managing Medications', duration: '8 min', completed: false },
+                    { name: 'Engaging Activities', duration: '12 min', completed: false }
+                ]
+            },
+            communication: {
+                title: 'Communication Strategies',
+                lessons: [
+                    { name: 'Understanding Communication Changes', duration: '10 min', completed: true },
+                    { name: 'Effective Speaking Techniques', duration: '12 min', completed: false },
+                    { name: 'Non-Verbal Communication', duration: '8 min', completed: false },
+                    { name: 'Handling Difficult Conversations', duration: '15 min', completed: false },
+                    { name: 'Creating Meaningful Moments', duration: '10 min', completed: false }
+                ]
+            },
+            selfcare: {
+                title: 'Caregiver Self-Care',
+                lessons: [
+                    { name: 'Recognizing Caregiver Burnout', duration: '10 min', completed: true },
+                    { name: 'Stress Management Techniques', duration: '12 min', completed: true },
+                    { name: 'Building Your Support Network', duration: '8 min', completed: true },
+                    { name: 'Setting Healthy Boundaries', duration: '10 min', completed: false },
+                    { name: 'Finding Joy in Caregiving', duration: '8 min', completed: false }
+                ]
+            }
+        };
+
+        function openLearningModule(moduleId) {
+            const module = learningModules[moduleId];
+            document.getElementById('modalTitle').textContent = module.title;
+            
+            const lessonList = document.getElementById('lessonList');
+            lessonList.innerHTML = module.lessons.map((lesson, index) => `
+                <div class="lesson-item ${lesson.completed ? 'completed' : ''}" onclick="startLesson('${lesson.name}')">
+                    <div class="lesson-number">${lesson.completed ? '✓' : index + 1}</div>
+                    <div class="lesson-info">
+                        <h5>${lesson.name}</h5>
+                        <p>${lesson.duration}</p>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('learningModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('learningModal').classList.remove('show');
+        }
+
+        function startLesson(lessonName) {
+            closeModal();
+            showToast(`Starting: ${lessonName}`, 'success');
+        }
+
+        function playVideo(videoName) {
+            showToast(`Playing: ${videoName}`, 'success');
+        }
+
+        // Alzheimer's Association Course Links
+        const alzCourseLinks = {
+            'warning-signs': 'https://training.alz.org/products/2033/10-warning-signs-of-alzheimers',
+            'understanding': 'https://training.alz.org/products/4028/understanding-alzheimers-and-dementia',
+            'behavior': 'https://training.alz.org/products/1021/understanding-and-responding-to-dementia-related-behavior',
+            'communication': 'https://training.alz.org/products/1020/effective-communication-strategies',
+            'conversations': 'https://training.alz.org/products/4031/dementia-conversations',
+            'money': 'https://training.alz.org/products/2034/managing-money-a-caregivers-guide-to-finances',
+            'living-early': 'https://training.alz.org/products/1019/living-with-alzheimers-for-caregivers-early-stage',
+            'living-middle': 'https://training.alz.org/products/1022/living-with-alzheimers-for-caregivers-middle-stage',
+            'living-late': 'https://training.alz.org/products/1023/living-with-alzheimers-for-caregivers-late-stage',
+            'living-patient': 'https://training.alz.org/products/1018/living-with-alzheimers-for-people-with-alzheimers',
+            'living-younger': 'https://training.alz.org/products/1024/living-with-alzheimers-for-younger-onset-alzheimers'
+        };
+
+        function openAlzCourse(courseId) {
+            const url = alzCourseLinks[courseId] || 'https://training.alz.org/';
+            showToast('Opening Alzheimer\'s Association course...', 'success');
+            setTimeout(() => {
+                window.open(url, '_blank');
+            }, 500);
+        }
+
+        // YouTube Video Player
+        function playYouTubeVideo(videoId) {
+            showToast('Opening video...', 'success');
+            setTimeout(() => {
+                window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+            }, 300);
+        }
+
+        // Video Modal (for embedded playback)
+        function openVideoModal(videoId) {
+            const modal = document.createElement('div');
+            modal.className = 'video-modal-overlay';
+            modal.innerHTML = `
+                <div class="video-modal-content">
+                    <button class="video-modal-close" onclick="closeVideoModal(this)">✕</button>
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            setTimeout(() => modal.classList.add('show'), 10);
+        }
+
+        function closeVideoModal(btn) {
+            const modal = btn.closest('.video-modal-overlay');
+            modal.classList.remove('show');
+            setTimeout(() => modal.remove(), 300);
+        }
+
+        // Close modal on outside click
+        document.getElementById('learningModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
